@@ -1,4 +1,6 @@
 import discord 
+import logging
+import time
 import aiohttp
 import security
 import asyncio
@@ -69,32 +71,13 @@ bot.verison = 1
 
 
 
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#_______________________________________________________________________________________#
 
 """
 ERROR HANDLING
