@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< Updated upstream
+
+# Config Files
+
+
+/tweeter.py
+/security.py
+=======
+/package-lock.json
+/discord.log
+/node_modules
+>>>>>>> Stashed changes
