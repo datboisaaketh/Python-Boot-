@@ -70,6 +70,8 @@ async def on_ready():
 
 
 
+<<<<<<< Updated upstream
+=======
 
 
 
@@ -80,6 +82,55 @@ async def on_ready():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+ERROR HANDLING
+"""
+async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.NoPrivateMessage):
+            await ctx.author.send('This command cannot be used in private messages.')
+        elif isinstance(error, commands.DisabledCommand):
+            await ctx.author.send('Sorry. This command is disabled and cannot be used.')
+        elif isinstance(error, commands.CommandInvokeError):
+            original = error.original
+            if not isinstance(original, discord.HTTPException):
+                print(f'In {ctx.command.qualified_name}:', file=sys.stderr)
+                traceback.print_tb(original.__traceback__)
+                print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
+        elif isinstance(error, commands.ArgumentParsingError):
+            await ctx.send(error)
+>>>>>>> Stashed changes
+
+
+
+
+
+
+
+
+
+<<<<<<< Updated upstream
+
+=======
+for extension in initial_extensions:
+            try:
+                self.load_extension(extension)
+            except Exception as e:
+                print(f'Failed to load extension {extension}.', file=sys.stderr)
+                traceback.print_exc()
+>>>>>>> Stashed changes
 
 
 
