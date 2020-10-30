@@ -139,3 +139,5 @@ dmypy.json
 /discord.log
 /node_modules
 >>>>>>> Stashed changes
+/cogs/utils/token.py
+cogs/utils/token.py
