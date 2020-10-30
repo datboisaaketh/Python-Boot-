@@ -6,6 +6,8 @@ from pathlib import Path
 from discord.ext import commands
 import traceback
 import sys
+from config
+import config
 
 bot = commands.Bot(command_prefix = '.')
 
