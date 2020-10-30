@@ -1,7 +1,20 @@
 import discord 
+<<<<<<< Updated upstream
 import security
 import os
 import pathlib
+=======
+import logging
+import time
+import aiohttp
+import config
+import asyncio
+import os
+import pathlib
+import sys
+import traceback
+import collections
+>>>>>>> Stashed changes
 from pathlib import Path
 from discord.ext import commands
 import traceback
@@ -44,7 +57,9 @@ print(f"{cwd}\n-----")
 
 
 
-
+inital_extensions = (
+    'cogs.command'
+)
 
 bot.verison = 1
 #_________________________________________________________#
@@ -135,4 +150,8 @@ if __name__ == '__main__':
         if file.endswith(".py") and not file.startswith("security"):
             bot.load_extension(f"cogs.{file[:-3]}")
 
+<<<<<<< Updated upstream
 bot.run = security.TOKEN
+=======
+bot.run(config.TOKEN)
+>>>>>>> Stashed changes
