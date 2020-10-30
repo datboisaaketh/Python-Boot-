@@ -1,19 +1,15 @@
 import discord 
-import logging
-import time
-import aiohttp
-import asyncio
+import security
 import os
 import pathlib
-import sys
-import traceback
 from pathlib import Path
 from discord.ext import commands
-
+import traceback
+import sys
+from config import Token
+from cogs.utils import config
 bot = commands.Bot(command_prefix = '.')
-@bot.event
-async def on_ready():
-    print("Loaded")
+
 
 
 # DEFINITIONS OF VARIBLES
@@ -49,8 +45,6 @@ print(f"{cwd}\n-----")
 
 
 
-<<<<<<< HEAD
-=======
 inital_extensions = (
     'cogs.command'
 )
@@ -83,7 +77,6 @@ async def on_ready():
 
 
 
->>>>>>> broken-stuff
 
 
 
@@ -98,27 +91,11 @@ async def on_ready():
 
 
 
-<<<<<<< HEAD
-bot.verison = 1
-#_________________________________________________________#
-# LOGGING INIT
-=======
->>>>>>> broken-stuff
 
 
 
 
-<<<<<<< HEAD
-logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
 
-#_______________________________________________________________________________________#
-=======
-
->>>>>>> broken-stuff
 
 """
 ERROR HANDLING
@@ -138,31 +115,11 @@ async def on_command_error(self, ctx, error):
             await ctx.send(error)
 
 
-<<<<<<< HEAD
-"""
-CLOSING 
-ARGUMENTS
-"""
-=======
->>>>>>> broken-stuff
 
 
 
 
 
-<<<<<<< HEAD
-@bot.command()
-async def close(ctx):
-    await ctx.send(f"Ending Asyncio loop, bye")
-    await bot.close
-
-
-if __name__ == '__main__':
-    for file in os.listdir(cwd+'/cogs'):
-        if file.endswith(".py") and not file.startswith("security"):
-            bot.load_extension(f"cogs.{file[:-3]}")
-
-=======
 
 
 
@@ -172,19 +129,13 @@ for extension in initial_extensions:
             except Exception as e:
                 print(f'Failed to load extension {extension}.', file=sys.stderr)
                 traceback.print_exc()
->>>>>>> broken-stuff
 
 
 
 
-<<<<<<< HEAD
-
-bot.run(security.TOKEN)
-=======
 if __name__ == '__main__':
     for file in os.listdir(cwd+'/cogs'):
         if file.endswith(".py") and not file.startswith("security"):
             bot.load_extension(f"cogs.{file[:-3]}")
 
 bot.run = config.TOKEN
->>>>>>> broken-stuff
