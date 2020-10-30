@@ -8,9 +8,13 @@ import traceback
 import sys
 import config
 from cogs.utils import token
+import logging
+from logging.handlers import RotatingFileHandler
 
 bot = commands.Bot(command_prefix = '.')
-
+@bot.event
+async def on_ready():
+    print("Loaded")
 
 
 # DEFINITIONS OF VARIBLES
@@ -51,6 +55,33 @@ initial_extensions = ('cogs.command')
 
 bot.verison = 1
 #_________________________________________________________#
+#LOGGING INIT
+class RemoveNoise(logging.Filter):
+    def __init__(self):
+        super().__init__(name='discord.state')
+
+    def filter(self, record):
+        if record.levelname == 'WARNING' and 'referencing an unknown' in record.msg:
+            return False
+        return True
+
+@contextlib.contextmanager
+def setup_logging():
+    try:
+        # __enter__
+        max_bytes = 32 * 1024 * 1024 # 32 MiB
+        logging.getLogger('discord').setLevel(logging.INFO)
+        logging.getLogger('discord.http').setLevel(logging.WARNING)
+        logging.getLogger('discord.state').addFilter(RemoveNoise())
+
+        log = logging.getLogger()
+        log.setLevel(logging.INFO)
+        handler = RotatingFileHandler(filename='rdanny.log', encoding='utf-8', mode='w', maxBytes=max_bytes, backupCount=5)
+        dt_fmt = '%Y-%m-%d %H:%M:%S'
+        fmt = logging.Formatter('[{asctime}] [{levelname:<7}] {name}: {message}', dt_fmt, style='{')
+        handler.setFormatter(fmt)
+        log.addHandler(handler)
+#LOGGING END
 
 
 
@@ -68,9 +99,6 @@ bot.verison = 1
 
 
 
-@bot.event
-async def on_ready():
-    print("Loaded")
 
 
 

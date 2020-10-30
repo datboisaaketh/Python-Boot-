@@ -23,8 +23,8 @@ class Commands(commands.Cog):
                 await ctx.send('Somehow, an unexpected error occurred. Try again later?')
 
 
-@commands.command(self)
-async def ping(ctx):
+@commands.command()
+async def ping(self, ctx):
     await ctx.send("One moment...")
     await ctx.send(f"{ctx.latency}*1000")
 
