@@ -1,9 +1,7 @@
 import discord 
-<<<<<<< HEAD
 import logging
 import time
 import aiohttp
-import security
 import asyncio
 import os
 import pathlib
@@ -16,19 +14,6 @@ bot = commands.Bot(command_prefix = '.')
 @bot.event
 async def on_ready():
     print("Loaded")
-=======
-import security
-import os
-import pathlib
-from pathlib import Path
-from discord.ext import commands
-import traceback
-import sys
-import config
-
-bot = commands.Bot(command_prefix = '.')
-
->>>>>>> broken-stuff
 
 
 # DEFINITIONS OF VARIBLES
