@@ -4,6 +4,8 @@ import os
 import pathlib
 from pathlib import Path
 from discord.ext import commands
+import traceback
+import sys
 
 bot = commands.Bot(command_prefix = '.')
 
@@ -70,9 +72,6 @@ async def on_ready():
 
 
 
-<<<<<<< Updated upstream
-=======
-
 
 
 
@@ -111,7 +110,6 @@ async def on_command_error(self, ctx, error):
                 print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
         elif isinstance(error, commands.ArgumentParsingError):
             await ctx.send(error)
->>>>>>> Stashed changes
 
 
 
@@ -121,16 +119,13 @@ async def on_command_error(self, ctx, error):
 
 
 
-<<<<<<< Updated upstream
 
-=======
 for extension in initial_extensions:
             try:
                 self.load_extension(extension)
             except Exception as e:
                 print(f'Failed to load extension {extension}.', file=sys.stderr)
                 traceback.print_exc()
->>>>>>> Stashed changes
 
 
 
