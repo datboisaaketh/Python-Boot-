@@ -1,5 +1,5 @@
 import discord 
-import security
+import aiohttp
 import os
 import pathlib
 from pathlib import Path
@@ -7,6 +7,7 @@ from discord.ext import commands
 import traceback
 import sys
 import config
+from cogs.utils import token
 
 bot = commands.Bot(command_prefix = '.')
 
@@ -36,7 +37,8 @@ bot.colors = {
 }
 bot.color_list = [c for c in bot.colors.values()]
 
-
+self.client_id = token.client_id
+self.bot_key = token.bots_key
 
 
 cwd = Path(__file__).parents[0]
@@ -45,9 +47,7 @@ print(f"{cwd}\n-----")
 
 
 
-inital_extensions = (
-    'cogs.command'
-)
+initial_extensions = ('cogs.command')
 
 bot.verison = 1
 #_________________________________________________________#
@@ -125,7 +125,7 @@ async def on_command_error(self, ctx, error):
 
 for extension in initial_extensions:
             try:
-                self.load_extension(extension)
+                bot.load_extension(extension)
             except Exception as e:
                 print(f'Failed to load extension {extension}.', file=sys.stderr)
                 traceback.print_exc()
@@ -136,6 +136,6 @@ for extension in initial_extensions:
 if __name__ == '__main__':
     for file in os.listdir(cwd+'/cogs'):
         if file.endswith(".py") and not file.startswith("security"):
-            bot.load_extension(f"cogs.{file[:-3]}")
+            self.load_extension(f"cogs.{file[:-3]}")
 
-bot.run = config.TOKEN
+bot.run = token.token
