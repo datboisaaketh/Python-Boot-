@@ -47,7 +47,8 @@ cwd = Path(__file__).parents[0]
 cwd = str(cwd)
 print(f"{cwd}\n-----")
 
-
+intents = discord.intents.default()
+intents.members = True
 
 initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
 
