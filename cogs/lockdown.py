@@ -1,6 +1,8 @@
 import discord 
 from discord.ext import commands
 
+def default_role(self, ctx):
+    ctx.guild.default_role = 771583405941850132
 
 @commands.command()
 @commands.guild_only()
@@ -25,3 +27,7 @@ async def lockdown(self, ctx, channel: discord.TextChannel=None):
         overwrites.send_messages = True
         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
         await ctx.send(f"I have removed `{channel.name}` from lockdown.")
+
+
+def setup(bot):
+    bot.add_cog(lockdown(bot))

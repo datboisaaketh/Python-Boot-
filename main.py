@@ -1,12 +1,13 @@
 import discord 
 import aiohttp
 import os
+from cogs.utils import token
 import pathlib
 from pathlib import Path
 from discord.ext import commands
 import traceback
 import sys
-import config
+
 from cogs.utils import token
 import logging
 from logging.handlers import RotatingFileHandler
@@ -17,7 +18,7 @@ async def on_ready():
     print("Loaded")
 
 
-# DEFINITIONS OF VARIBLES
+#  VARIBLES
 bot.colors = {
   'WHITE': 0xFFFFFF,
   'AQUA': 0x1ABC9C,
@@ -41,9 +42,6 @@ bot.colors = {
 }
 bot.color_list = [c for c in bot.colors.values()]
 
-self.client_id = token.client_id
-self.bot_key = token.bots_key
-
 
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
@@ -51,37 +49,18 @@ print(f"{cwd}\n-----")
 
 
 
-initial_extensions = ('cogs.command')
+initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
 #LOGGING INIT
-class RemoveNoise(logging.Filter):
-    def __init__(self):
-        super().__init__(name='discord.state')
 
-    def filter(self, record):
-        if record.levelname == 'WARNING' and 'referencing an unknown' in record.msg:
-            return False
-        return True
 
-@contextlib.contextmanager
-def setup_logging():
-    try:
-        # __enter__
-        max_bytes = 32 * 1024 * 1024 # 32 MiB
-        logging.getLogger('discord').setLevel(logging.INFO)
-        logging.getLogger('discord.http').setLevel(logging.WARNING)
-        logging.getLogger('discord.state').addFilter(RemoveNoise())
-
-        log = logging.getLogger()
-        log.setLevel(logging.INFO)
-        handler = RotatingFileHandler(filename='rdanny.log', encoding='utf-8', mode='w', maxBytes=max_bytes, backupCount=5)
-        dt_fmt = '%Y-%m-%d %H:%M:%S'
-        fmt = logging.Formatter('[{asctime}] [{levelname:<7}] {name}: {message}', dt_fmt, style='{')
-        handler.setFormatter(fmt)
-        log.addHandler(handler)
-#LOGGING END
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 
 
@@ -101,33 +80,7 @@ def setup_logging():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-ERROR HANDLING
-"""
+# ERROR HANDLING
 async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')
@@ -160,10 +113,5 @@ for extension in initial_extensions:
 
 
 
-
-if __name__ == '__main__':
-    for file in os.listdir(cwd+'/cogs'):
-        if file.endswith(".py") and not file.startswith("security"):
-            self.load_extension(f"cogs.{file[:-3]}")
 
 bot.run = token.token
