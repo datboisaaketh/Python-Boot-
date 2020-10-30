@@ -13,6 +13,12 @@ bot = commands.Bot(command_prefix = '.')
 
 
 # DEFINITIONS OF VARIBLES
+
+initial_extensions = ('cogs.config', 'cogs.commands')
+
+
+
+
 bot.colors = {
   'WHITE': 0xFFFFFF,
   'AQUA': 0x1ABC9C,
