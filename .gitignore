@@ -144,3 +144,5 @@ dmypy.json
 /node_modules
 /cogs/utils/config.py
 /cogs/utils/token.py
+cogs/utils/config.py
+cogs/utils/config.py
