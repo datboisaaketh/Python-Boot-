@@ -43,14 +43,12 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
-cwd = Path(__file__).parents[0]
-cwd = str(cwd)
-print(f"{cwd}\n-----")
+bot_token = token.tooken
 
-intents = discord.intents.default()
+intents = discord.Intents.default()
 intents.members = True
 
-initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
+initial_extensions = ('cogs.commands', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
@@ -82,19 +80,22 @@ logger.addHandler(handler)
 
 
 # ERROR HANDLING
-async def on_command_error(self, ctx, error):
+async def on_command_error(ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')
         elif isinstance(error, commands.DisabledCommand):
             await ctx.author.send('Sorry. This command is disabled and cannot be used.')
         elif isinstance(error, commands.CommandInvokeError):
             original = error.original
+            await ctx.send("InvokeError")
             if not isinstance(original, discord.HTTPException):
                 print(f'In {ctx.command.qualified_name}:', file=sys.stderr)
                 traceback.print_tb(original.__traceback__)
                 print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
         elif isinstance(error, commands.ArgumentParsingError):
             await ctx.send(error)
+        elif isinstance(error, commands.ExtensionNotLoaded):
+            await ctx.send('Cannot Reload the never loaded')
 
 
 
@@ -107,7 +108,8 @@ async def on_command_error(self, ctx, error):
 
 for extension in initial_extensions:
             try:
-                self.load_extension(extension)
+
+                bot.load_extension(extension)
             except Exception as e:
                 print(f'Failed to load extension {extension}.', file=sys.stderr)
                 traceback.print_exc()
@@ -115,4 +117,15 @@ for extension in initial_extensions:
 
 
 
-bot.run = token.token
+
+
+
+@bot.command()
+async def reloadext(ctx, extension):
+    await ctx.send(f'Reloading {extension}')
+    bot.reload_extension(f'cogs.{extension}')
+    await ctx.send("Reloaded The Extension")
+
+
+
+bot.run(bot_token)
