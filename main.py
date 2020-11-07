@@ -109,6 +109,10 @@ for extension in initial_extensions:
                 traceback.print_exc()
 
 
+@bot.command()
+async def reloadext(ctx, extension):
+    await ctx.send("")
+
 
 
 bot.run = token.token
