@@ -134,10 +134,13 @@ dmypy.json
 
 /tweeter.py
 /security.py
-=======
+<<<<<<< HEAD
 /package-lock.json
 /discord.log
 /node_modules
->>>>>>> Stashed changes
+/cogs/utils/config.py
+/package-lock.json
+/discord.log
+/node_modules
+cogs/utils/config.py
 /cogs/utils/token.py
-cogs/utils/token.py

@@ -1,22 +1,22 @@
 import discord 
+import aiohttp
 import os
 import pathlib
 from pathlib import Path
 from discord.ext import commands
 import traceback
 import sys
-from cogs.utils import config
+from cogs.utils import token
+import logging
+from logging.handlers import RotatingFileHandler
+
 bot = commands.Bot(command_prefix = '.')
+@bot.event
+async def on_ready():
+    print("Loaded")
 
 
-
-# DEFINITIONS OF VARIBLES
-
-initial_extensions = ('cogs.config', 'cogs.commands')
-
-
-
-
+#  VARIBLES
 bot.colors = {
   'WHITE': 0xFFFFFF,
   'AQUA': 0x1ABC9C,
@@ -41,20 +41,25 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
+bot_token = token.token
 
+intents = discord.intents.default()
+intents.members = True
 
-cwd = Path(__file__).parents[0]
-cwd = str(cwd)
-print(f"{cwd}\n-----")
-
-
-
-inital_extensions = (
-    'cogs.command'
-)
+initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
+#LOGGING INIT
+
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
+
+#________________________________________________________________________________________________#
 
 
 
@@ -72,38 +77,7 @@ bot.verison = 1
 
 
 
-@bot.event
-async def on_ready():
-    print("Loaded")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-ERROR HANDLING
-"""
+# ERROR HANDLING
 async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')
@@ -135,11 +109,10 @@ for extension in initial_extensions:
                 traceback.print_exc()
 
 
+@bot.command()
+async def reloadext(ctx, extension):
+    await ctx.send("")
 
 
-if __name__ == '__main__':
-    for file in os.listdir(cwd+'/cogs'):
-        if file.endswith(".py") and not file.startswith("security"):
-            bot.load_extension(f"cogs.{file[:-3]}")
 
-bot.run = config.TOKEN
+bot.run = token.token
