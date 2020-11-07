@@ -4,9 +4,9 @@ import os
 import pathlib
 from pathlib import Path
 from discord.ext import commands
+from cogs.utils import config
 import traceback
 import sys
-from cogs.utils import token
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -41,7 +41,7 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
-bot_token = token.token
+bot_token = config.token
 
 intents = discord.intents.default()
 intents.members = True
@@ -110,8 +110,10 @@ for extension in initial_extensions:
 
 
 @bot.command()
-async def reloadext(ctx, extension):
-    await ctx.send("")
+async def reloadext(ctx, message, extension):
+    await ctx.send("Reloading Ext....")
+    await message.edit(content= f"{bot.latency}")
+
 
 
 
