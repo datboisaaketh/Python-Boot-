@@ -129,10 +129,12 @@ dmypy.json
 .pyre/
 
 # Config Files
-/package-lock.json
-/node_modules
-/cogs/utils/tweeter.py
+
+
 /tweeter.py
 /security.py
-cogs/utils/config.py
+/package-lock.json
+/discord.log
+/node_modules
+/cogs/utils/config.py
 /cogs/utils/token.py

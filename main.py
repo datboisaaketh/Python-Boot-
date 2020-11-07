@@ -1,13 +1,11 @@
 import discord 
 import aiohttp
 import os
-from cogs.utils import config
 import pathlib
 from pathlib import Path
 from discord.ext import commands
 import traceback
 import sys
-
 from cogs.utils import token
 import logging
 from logging.handlers import RotatingFileHandler
@@ -43,12 +41,12 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
-bot_token = config.token
+bot_token = token.token
 
-intents = discord.Intents.default()
+intents = discord.intents.default()
 intents.members = True
 
-initial_extensions = ('cogs.commands', 'cogs.stats', 'cogs.lockdown')
+initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
@@ -80,22 +78,19 @@ logger.addHandler(handler)
 
 
 # ERROR HANDLING
-async def on_command_error(ctx, error):
+async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')
         elif isinstance(error, commands.DisabledCommand):
             await ctx.author.send('Sorry. This command is disabled and cannot be used.')
         elif isinstance(error, commands.CommandInvokeError):
             original = error.original
-            await ctx.send("InvokeError")
             if not isinstance(original, discord.HTTPException):
                 print(f'In {ctx.command.qualified_name}:', file=sys.stderr)
                 traceback.print_tb(original.__traceback__)
                 print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
         elif isinstance(error, commands.ArgumentParsingError):
             await ctx.send(error)
-        elif isinstance(error, commands.ExtensionNotLoaded):
-            await ctx.send('Cannot Reload the never loaded')
 
 
 
@@ -108,7 +103,6 @@ async def on_command_error(ctx, error):
 
 for extension in initial_extensions:
             try:
-
                 bot.load_extension(extension)
             except Exception as e:
                 print(f'Failed to load extension {extension}.', file=sys.stderr)
@@ -117,15 +111,4 @@ for extension in initial_extensions:
 
 
 
-
-
-
-@bot.command()
-async def reloadext(ctx, extension):
-    await ctx.send(f'Reloading {extension}')
-    bot.reload_extension(f'cogs.{extension}')
-    await ctx.send("Reloaded The Extension")
-
-
-
-bot.run(bot_token)
+bot.run = token.token

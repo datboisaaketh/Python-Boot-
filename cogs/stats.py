@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 import random
 
-bot = discord.Client()
-class Stats(commands.Cog):
+class Stats(Commands.cog):
 
 
     def __init___(self, bot):
