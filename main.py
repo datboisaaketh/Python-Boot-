@@ -6,7 +6,7 @@ from pathlib import Path
 from discord.ext import commands
 import traceback
 import sys
-from cogs.utils import token
+from cogs.utils import config
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -41,12 +41,12 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
-bot_token = token.token
+bot_token = config.token
 
-intents = discord.intents.default()
+intents = discord.Intents.default()
 intents.members = True
 
-initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
+initial_extensions = ('cogs.commands', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
@@ -115,4 +115,4 @@ async def reloadext(ctx, extension):
 
 
 
-bot.run = token.token
+bot.run(bot_token)

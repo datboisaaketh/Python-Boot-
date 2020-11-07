@@ -142,5 +142,5 @@ dmypy.json
 /package-lock.json
 /discord.log
 /node_modules
-cogs/utils/config.py
+/cogs/utils/config.py
 /cogs/utils/token.py
