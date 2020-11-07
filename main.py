@@ -1,7 +1,7 @@
 import discord 
 import aiohttp
 import os
-from cogs.utils import token
+from cogs.utils import config
 import pathlib
 from pathlib import Path
 from discord.ext import commands
@@ -43,7 +43,7 @@ bot.colors = {
 bot.color_list = [c for c in bot.colors.values()]
 
 
-bot_token = token.tooken
+bot_token = config.token
 
 intents = discord.Intents.default()
 intents.members = True
