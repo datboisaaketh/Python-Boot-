@@ -1,12 +1,14 @@
 import discord
 from discord.ext import commands
+import main 
 import random
 
 class Stats(commands.Cog):
 
 
-    def __init___(self, bot):
+    def __init__(self, bot):
         self.bot = bot
+
     
     @commands.Cog.listener()
     async def on_ready(self):
@@ -15,7 +17,7 @@ class Stats(commands.Cog):
     @commands.command(aliases=['cs'])
     async def channelstats(self, ctx):
         channel = ctx.channel
-        embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=random.choice(self.bot.color_list))
+        embed = discord.Embed(title=f"Stats for **{channel.name}**", description=f"{'Category: {}'.format(channel.category.name) if channel.category else 'This channel is not in a category'}", color=random.choice(main.bot.colors))
         embed.add_field(name="Channel Guild", value=ctx.guild.name, inline=False)
         embed.add_field(name="Channel Id", value=channel.id, inline=False)
         embed.add_field(name="Channel Topic", value=f"{channel.topic if channel.topic else 'No topic.'}", inline=False)
