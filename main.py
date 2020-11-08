@@ -85,13 +85,13 @@ async def on_command_error(self, ctx, error):
             await ctx.author.send('Sorry. This command is disabled and cannot be used.')
         elif isinstance(error, commands.CommandInvokeError):
             original = error.original
+            await ctx.send("Invoke Error")
             if not isinstance(original, discord.HTTPException):
                 print(f'In {ctx.command.qualified_name}:', file=sys.stderr)
                 traceback.print_tb(original.__traceback__)
                 print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
         elif isinstance(error, commands.ArgumentParsingError):
             await ctx.send(error)
-
 
 
 
@@ -110,7 +110,8 @@ for extension in initial_extensions:
 
 
 @bot.command()
-async def reloadext(ctx,  extension):
+async def reloadext(ctx,extension):
+    extension=extension
     await ctx.send("Reloading Ext....")
     bot.reload_extension(extension)
 
