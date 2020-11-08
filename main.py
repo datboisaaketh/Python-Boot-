@@ -43,10 +43,10 @@ bot.color_list = [c for c in bot.colors.values()]
 
 bot_token = config.token
 
-intents = discord.intents.default()
+intents = discord.Intents.default()
 intents.members = True
 
-initial_extensions = ('cogs.command', 'cogs.stats', 'cogs.lockdown')
+initial_extensions = ('cogs.commands', 'cogs.stats', 'cogs.lockdown')
 
 bot.verison = 1
 #_________________________________________________________#
@@ -110,11 +110,11 @@ for extension in initial_extensions:
 
 
 @bot.command()
-async def reloadext(ctx, message, extension):
+async def reloadext(ctx,  extension):
     await ctx.send("Reloading Ext....")
-    await message.edit(content= f"{bot.latency}")
+    bot.reload_extension(extension)
 
 
 
 
-bot.run = token.token
+bot.run(bot_token)

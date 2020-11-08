@@ -2,11 +2,8 @@ import discord
 from discord.ext import commands
 import random
 
-class Stats(Commands.cog):
+class Stats(commands.Cog):
 
-
-    def __init___(self, bot):
-        self.bot = bot
     
     @commands.Cog.listener()
     async def on_ready(self):
