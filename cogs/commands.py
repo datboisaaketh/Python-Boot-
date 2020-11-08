@@ -10,16 +10,29 @@ class Commands(commands.Cog):
     @commands.command()
     async def ping(self, ctx, message):
         await ctx.send("One Moment ...")
-        await ctx.send(f"{self.bot.latency}")
+        await ctx.send(f"{self.bot.latency}")     
     @commands.command()
-    async def clear(self, ctx,  number):
-        mgs = []
-        number = int(number)
-        async for x in self.bot.logs_from(ctx.message.channel, limit = number):
-            mgs.append(x)
-        await self.bot.delete_messages(mgs)
+    async def clear(self, ctx,  amount=10):
+        await ctx.send(f"Purging the Messages")
+        await ctx.channel.purge(limit=amount)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         #Safety#
-    
     
     
     

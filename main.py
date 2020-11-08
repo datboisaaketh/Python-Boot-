@@ -111,7 +111,6 @@ for extension in initial_extensions:
 
 @bot.command()
 async def reloadext(ctx,extension):
-    extension=extension
     await ctx.send("Reloading Ext....")
     bot.reload_extension(extension)
 
