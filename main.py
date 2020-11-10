@@ -1,4 +1,4 @@
-import discord 
+import discord as dis
 import aiohttp
 import os
 import pathlib
@@ -17,33 +17,12 @@ async def on_ready():
 
 
 #  VARIBLES
-bot.colors = {
-  'WHITE': 0xFFFFFF,
-  'AQUA': 0x1ABC9C,
-  'GREEN': 0x2ECC71,
-  'BLUE': 0x3498DB,
-  'PURPLE': 0x9B59B6,
-  'LUMINOUS_VIVID_PINK': 0xE91E63,
-  'GOLD': 0xF1C40F,
-  'ORANGE': 0xE67E22,
-  'RED': 0xE74C3C,
-  'NAVY': 0x34495E,
-  'DARK_AQUA': 0x11806A,
-  'DARK_GREEN': 0x1F8B4C,
-  'DARK_BLUE': 0x206694,
-  'DARK_PURPLE': 0x71368A,
-  'DARK_VIVID_PINK': 0xAD1457,
-  'DARK_GOLD': 0xC27C0E,
-  'DARK_ORANGE': 0xA84300,
-  'DARK_RED': 0x992D22,
-  'DARK_NAVY': 0x2C3E50
-}
-bot.color_list = [c for c in bot.colors.values()]
+
 
 
 bot_token = config.token
 
-intents = discord.Intents.default()
+intents = dis.Intents.default()
 intents.members = True
 
 initial_extensions = ('cogs.commands', 'cogs.stats', 'cogs.lockdown')
@@ -54,9 +33,9 @@ bot.verison = 1
 
 
 logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+handler.setFormatter(logging.Formatter('%(m)s:%(d)s:%(Y)s:%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
 #________________________________________________________________________________________________#
@@ -76,17 +55,19 @@ logger.addHandler(handler)
 
 
 
-
 # ERROR HANDLING
-async def on_command_error(self, ctx, error):
+async def on_command_error(message, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')
         elif isinstance(error, commands.DisabledCommand):
             await ctx.author.send('Sorry. This command is disabled and cannot be used.')
+        elif isinstance(error, commands.CommandNotFound):
+            await message.channel.send("Command Not Found")
+            await ctx.send("If you didnt mean to type a command, Stop using fucking periods 24/7 Vinnie")
+            await ctx.send("Invoke Error")
         elif isinstance(error, commands.CommandInvokeError):
             original = error.original
-            await ctx.send("Invoke Error")
-            if not isinstance(original, discord.HTTPException):
+            if not isinstance(original, dis.HTTPException):
                 print(f'In {ctx.command.qualified_name}:', file=sys.stderr)
                 traceback.print_tb(original.__traceback__)
                 print(f'{original.__class__.__name__}: {original}', file=sys.stderr)
@@ -109,13 +90,20 @@ for extension in initial_extensions:
                 traceback.print_exc()
 
 
-@bot.command()
+@bot.command(hidden=True)
 async def reloadext(ctx,extension):
     await ctx.send("Reloading Ext....")
     bot.reload_extension(f"cogs.{extension}")
     await ctx.send("Reload")
 
 
+
+
+@bot.command(hidden=True)
+async def unloadext(ctx, extenstion):
+    await ctx.send("Teardown init")
+    bot.unload_extension(f"cogs.{extension}")
+    await ctx.send("Teardown complete")
 
 
 bot.run(bot_token)

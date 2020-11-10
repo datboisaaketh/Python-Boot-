@@ -7,7 +7,7 @@ class Commands(commands.Cog):
         self.bot = bot
 
 
-    @commands.command()
+    @commands.command(hidden=True)
     async def ping(self, ctx, message):
         await ctx.send("One Moment ...")
         await ctx.send(f"{self.bot.latency}")     
@@ -28,8 +28,17 @@ class Commands(commands.Cog):
         
         
         
+    @commands.command(hidden=True)
+    async def debug(self, ctx):
+        await ctx.send( 'log.info(Shard ID %s has connected to Gateway: %s (Session ID: %s).,Message: Shard ID %s has connected to Gateway: %s (Session ID: %s).Arguments: (None, [ gateway-prd-main-f7nd ,{ micros :129257, calls :[ discord-sessions-prd-2-110 ,{ micros :123507, calls :[ start_session ,{ micros :104832, calls :[ api-prd-main-fzw7 ,{ micros :99962, calls :[ get_user ,{ micros :3995}, add_authorized_ip ,{ micros :2959}, get_guilds ,{ micros :51933}, coros_wait ,{ micros :1}]}]}, guilds_connect ,{ micros :6, calls :[]}, presence_connect ,{ micros :5232, calls :[]}]}]}], 8eeb004b0ac6260b928bebd56ca20fdf')
+            
+
+
+    @subaru_error()
+    async def subaru_error(self, error):
+
         
-        
+    
         
         
         

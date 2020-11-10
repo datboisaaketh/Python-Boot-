@@ -8,7 +8,7 @@ class Lockdown(commands.Cog):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def lockdown(self, ctx, channel: discord.TextChannel=None):
+    async def lockdown(self, ctx, channel: discord.TextChannel=None, hidden=True):
         channel = ctx.channel
 
         if ctx.guild.default_role not in channel.overwrites:
